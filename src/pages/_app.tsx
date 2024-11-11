@@ -1,6 +1,5 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import { Analytics } from "@vercel/analytics/react"
 import { Card, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { MailIcon, CalendarIcon, BookIcon, LibraryIcon } from 'lucide-react';
 import { useState } from 'react';
@@ -75,7 +74,6 @@ function Blog({ Component, pageProps }: AppProps) {
             </CardHeader>
           </Card>
         </div>
-        <Analytics />
         <Component {...pageProps} />
       </div>
     </main>

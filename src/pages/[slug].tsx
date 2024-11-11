@@ -7,44 +7,32 @@ import Markdown from 'marked-react'
 import matter from 'gray-matter';
 import md from "markdown-it";
 import anchor from "markdown-it-anchor";
-import Lowlight from 'react-lowlight';
+import hljs from 'highlight.js';
 import javascript from 'highlight.js/lib/languages/javascript';
 import go from 'highlight.js/lib/languages/go';
 import bash from 'highlight.js/lib/languages/bash';
 import yaml from 'highlight.js/lib/languages/yaml';
 import json from 'highlight.js/lib/languages/json';
-import 'highlight.js/styles/github.css';
+import python from 'highlight.js/lib/languages/python';
 import { useEffect, useState } from 'react';
 
-Lowlight.registerLanguage('javascript', javascript);
-Lowlight.registerLanguage('go', go);
-Lowlight.registerLanguage('bash', bash);
-Lowlight.registerLanguage('yaml', yaml);
-Lowlight.registerLanguage('json', json);
+// import 'highlight.js/styles/github.css';
+// import 'highlight.js/styles/github-dark.css';
+// import 'highlight.js/styles/nord.css';
+// import 'highlight.js/styles/dracula.css';
+// import 'highlight.js/styles/monokai.css';
+// import 'highlight.js/styles/night-owl.css';
+// import 'highlight.js/styles/tokyo-night.css';
+// import 'highlight.js/styles/github-dark-dimmed.css';
+// import 'highlight.js/styles/github-dark.css';
+import 'highlight.js/styles/atom-one-dark.css';
 
-const renderer = {
-  code(snippet: string, lang: string) {
-    return (
-      <Lowlight
-        language={lang || 'javascript'}
-        value={snippet}
-        inline={false}
-      />
-    );
-  },
-};
-
-interface MarkdownRendererProps {
-  markdown: string;
-}
-
-const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ markdown }) => {
-  return (
-    <div className="markdown-content">
-      <Markdown renderer={renderer} breaks={true} gfm={true}>{markdown}</Markdown>
-    </div>
-  );
-};
+hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('go', go);
+hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('yaml', yaml);
+hljs.registerLanguage('json', json);
+hljs.registerLanguage('python', python);
 
 interface ToCItem {
   id: string;
@@ -99,7 +87,17 @@ const BlogPost = (props: {
   const mdParser = md({
     html: true,
     linkify: true,
-    typographer: true
+    typographer: true,
+    highlight: function (str: string, lang: string) {
+      if (lang && hljs.getLanguage(lang)) {
+        try {
+          return hljs.highlight(str, { language: lang }).value;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+      return ''; // use external default escaping
+    }
   }).use(anchor, {
     permalink: false,
     slugify: (s: string) => s.toLowerCase().replace(/[^\w]+/g, '-')

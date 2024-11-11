@@ -93,14 +93,28 @@ As there aren’t good existing solutions for this, we are building the solution
 
 
 # Releasing Sentinel
-
 To address the above challenges, we are launching the closed beta for [Sentinel](https://docs.entropy-labs.ai/), a powerful new way to improve agent reliability and safety.
 
 Sentinel makes it much easier to rapidly prototype, evaluate and monitor agents in the wild. In just a few lines of code, you can add *Supervisors* to your agent which can catch unintended behaviors and edge cases. 
 
-Sentinel is *not* an agent framework. It can hook into any agent of your choice and instantly give you runtime safety and reliability guarantees. 
+Sentinel is *not* an agent framework. It can hook into any agent of your choice and instantly give you runtime safety and reliability guarantees. Hooking into an agent is as simple as adding a decorator to your function:
+
+```python
+from entropy_labs import supervise, LLMSupervisor, HumanInTheLoopSupervisor
+
+@supervise(
+    supervisors=[
+        LLMSupervisor(prompt="You are a helpful assistant"),
+        HumanInTheLoopSupervisor()
+    ]
+)
+def my_function():
+    return "Hello, world!"
+```
 
 Sentinel is comprised of a Python package and a user interface that you can install and run locally using Docker. The UI gives you deep insights into agent actions, tools that the agent is using, and how supervisors have responded to requests by your agent to execute those tools. 
+
+![Sentinel UI](/img/blog/ui.png "Sentinel UI")
 
 The UI allows human operators to manually approve, reject or modify agent tool requests. A common design pattern is to have automated supervisors run first and only escalate to human when problematic behavior is detected. 
 

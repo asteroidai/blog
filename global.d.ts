@@ -6,3 +6,4 @@ declare module 'highlight.js/lib/languages/go';
 declare module 'highlight.js/lib/languages/bash';
 declare module 'highlight.js/lib/languages/yaml';
 declare module 'highlight.js/lib/languages/json';
+declare module 'highlight.js/lib/languages/python';
