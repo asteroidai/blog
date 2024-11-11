@@ -2,19 +2,19 @@
 title: 'Evaluating Generalist Agents'
 date: '2024-11-11T00:07:44.675Z'
 description: 'Testing generalist agents is hard, and we need evaluation techniques that can keep up with them.'
-thumbnail: '/img/blog/abstract.jpg'
+thumbnail: '/img/blog/brain.jpg'
 ---
 
 # You Also Need Supervision
-
-AI-based software represents an entirely new category of software engineering, and brings with it an extensive list of unsolved problems:
+LLM-backed systems represent an entirely new category of software. Giving runtime decision making authority to AI agents that can behave competently in the face of uncertainty is a powerful paradigm shift that we are only just beginning to tap into, but it also brings with it a list of unsolved problems:
 
 - What sort of decisions should your software make on your behalf?
-- What does it mean for your system to self-improve at runtime?
+- How should human operators supervise agents in a scalable way? 
 - How do you evaluate success rates of increasingly general purpose software systems?
 
-We need new ways of thinking about our software in order to move forward, but we have good reasons to believe that the upside of getting it right is astronomical. 
+These are difficult problems, and we're very much in the early days of defining these problem statements and venturing towards solutions. If we get them right, we have good reasons to believe that astronomical upsides lie ahead.
 
+### Why agents are hard
 Today, every company deploying agents goes through the same life cycle:
 
 1. *Build a prototype*
