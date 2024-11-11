@@ -33,76 +33,67 @@ One key problem with evaluating agents in this way is that the action space is m
 
 So if offline testing is insufficient to understand the runtime behavior of agentic systems, what’s the solution?
 
+### Runtime evals via supervision
 We believe that to make agents work, we’re going to need entirely new evaluation methods,  interfaces, and oversight mechanisms. To deploy reliable, safe and continuously improving agents we’ll need:
 
 1. Offline evaluations that you can rapidly build and destroy at will, allowing tight development loops
 2. Runtime agent supervision that is scalable to millions of agent actions 
 3. Seamless human-agent interaction
 
-As there aren’t good existing solutions for this, we are building the solution. Here we are outlining necessary components of the overall supervision and evaluation system of AI Agents
+As there aren’t good existing solutions for this, we are building the solution. In the following we'll outline the necessary components of the overall supervision and evaluation system of AI Agents that we're planning to build.
 
 1. **Offline Evaluations**
-    
     Agent must be tested before real-world deployment on evaluation examples, past executions and new simulations. Any non-deterministic component and downstream components  should be evaluated before deployment. It has to be possible to run extremely fast iterative offline experimentation.
     
     1. Real-time Observability and Monitoring
     2. Toggle non-determinism for debugging
     3. Evals (tasks, examples, scoring functions)
     4. Simulation
+
 2. **Online Supervision**
-    
     Offline evaluations can’t rule out unintended behaviour at runtime. Supervision at runtime is crucial to enforce defined rules and policies. Every agent action with significant impact should have associated supervisors.
     
     1. **Policy Enforcement** 
-        
         Supervisors need to be able to actively change agents behaviour to prevent or correct bad actions.
         
     2. **Highly Configurable Supervisors**
-        
         Each agent action requires specific type of supervision. Customers can create different supervisor chains depending on the action (e.g. sending emails, updating database, command execution)
         
-    3. Supervisors hierarchy
-        
+    3. **Supervisor Hierarchy**
         Supervision is hierarchical. Similar to actions in real-life where for more high impact actions, more . This is more prevalent with ai agents where some form of supervision might be faster and cheaper. The common pattern we expect to emerge will be deterministic supervisor escalating to AI-based supervisor escalating to human supervisor.
         
-    4. Supervisors Independence
-        
+    4. **Supervisors Independence**
         Supervisors operate independently from their monitored AI agents. They have separate instruction sets and data access permissions.
         
 3. **Human in the Loop**
-    
     Many actions will still require human approval. We expect that soon 1 person could efficiently oversee 10,000+ agents with only specific actions needing approval. To make approval extremely fast and intuitive, there need to be configurable UIs for agent types and human roles.
     
     1. **Human feedback and correction**
     2. **Deep Observability (context-aware)**
-        
         To effectively supervise agentic system and make a decision in real-time, granular observation into agent’s execution is needed. 
         
-    3. Context-specific
-        
+    3. **Context-specific**
         We need to present relevant context to the human operator (e.g. summary of last messages, risk scores for each action). AI should actively find relevant information to surface to the human.
         
     4. **Agent-specific views**
-        
         UIs need to be tailored to each agent. Different agents require different UIs (e.g. screenshots for web-browsing agent).
         
-4. Easy to Integrate
-    1. Python package
+4. **Easy to Integrate**
+    1. **Python package**
         1. OpenAI, LangChain, Inspect AI 
-        2. Anthropic, LangGraph, …
-5. Scalable
-    
+        2. Anthropic, LangGraph, and others
+
+5. **Scalable**
     The supervision needs to scale with growing agent capabilities and number of agents.
-    
-    1. 
-6. Self-improving Supervision and Agent design
+
+6. **Self-improving Supervision and Agent design**
     1. Every agent execution, every interaction with a customer, every supervisor correction should improves the future agent executions.
     2. Execution logs reusability when the agent scaffold changes
     3. CI/CD evaluations to automatically detect regressions.
 
 ## Releasing Sentinel
 
-We are launching the closed beta for Sentinel, a powerful new way to improve agent reliability and safety.
+To address the above challenges, we are launching the closed beta for [Sentinel](https://docs.entropy-labs.ai/), a powerful new way to improve agent reliability and safety.
 
 Sentinel makes it much easier to rapidly prototype, evaluate and monitor agents in the wild. In just a few lines of code, you can add *Supervisors* to your agent which can catch unintended behaviors and edge cases. 
 
@@ -146,8 +137,6 @@ The configuration of a custom LLM Supervisor for example, could be as simple as 
 
 Supervisors can be chained together and run in parallel. For example fast deterministic supervisor can escalate to AI-based supervisor that can escalate to human. Developers can create multiple supervisor chains that can run in parallel, each checking for specific behavior.
 
-*[add screenshot from UI of multiple supervisor chains attached to a tool call?]*
-
 # Human in the Loop
 
 Some agent actions might need human approval. For this, we provide a Human in the Loop Supervisor that works with our UI, giving you immediate human control. 
@@ -160,8 +149,6 @@ More sophisticated usage is to have human to only step in when multiple automate
 
 Human is presented in the web UI with all context needed to make a decision. This includes previous messages, tool calls, current tool call and arguments, previous supervisors that escalated etc. Human can approve, reject or modify the tool call to steer the agent on a correct trajectory.
 
-*[add image of our HITL interface?]*
-
 # Mocking
 
 When testing LLM application, it’s useful to be able to test the . Since our `supervise()` decorator wraps around the tool calls, it can also be used to stub the tool calls. This is useful when the tool call can have impact on your system (such as changing data in a database or writing files to disk)
@@ -170,4 +157,4 @@ When testing LLM application, it’s useful to be able to test the . Since our `
 
 Go to our [Documentation](https://docs.entropy-labs.ai/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://www.notion.so/Blog-Ideas-9d1e5b516b99474c80db226b64f71829?pvs=21) on how to start using Sentinel. Check out one of our [examples](...) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
 
-If you found any of this relevant to your use case! … [Book a demo!!!](https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo)
+If you'd like to deploy agents quickly, reliably and safely with Sentinel, [book a demo](https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo) with us.
