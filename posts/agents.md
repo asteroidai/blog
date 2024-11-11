@@ -31,7 +31,7 @@ Today, every company deploying agents goes through the same life cycle:
 2. *Vibe-check*
 3. *Deployment*
 4. *Agent makes a mistake (customer complains)*
-5. *Fix/Improve agent → Goes to 2 (Repeat unsustainably)*
+5. *Fix/Improve the agent → Go to 2*
 
 It is only after many iterations of this cycle that developers realize that perfect agents can’t exist. The more freedom to make decisions and affect the world they have, the more opportunities there are to make mistakes; *intelligent systems are necessarily imperfect.*
 
@@ -70,7 +70,7 @@ There isn't a great existing solution for this, so we're building it. In the fol
         Each agent action requires specific type of supervision. Customers can create different supervisor chains depending on the action (e.g. sending emails, updating database, command execution)
         
     3. **Supervisor Hierarchy**
-        Supervision is hierarchical. Similar to actions in real-life where for more high impact actions, more . This is more prevalent with ai agents where some form of supervision might be faster and cheaper. The common pattern we expect to emerge will be deterministic supervisor escalating to AI-based supervisor escalating to human supervisor.
+        Supervision is hierarchical. Similar to actions in real-life where for more high impact actions, more supervision is needed. This is more prevalent with AI agents where some form of supervision might be faster and cheaper. The common pattern we expect to emerge will be deterministic supervisors escalating to AI-based supervisors, which in turn may escalate to human supervisors.
         
     4. **Supervisors Independence**
         Supervisors operate independently from their monitored AI agents. They have separate instruction sets and data access permissions.
@@ -97,7 +97,7 @@ There isn't a great existing solution for this, so we're building it. In the fol
     The supervision needs to scale with growing agent capabilities and number of agents.
 
 6. **Self-improving Supervision and Agent design**
-    1. Every agent execution, every interaction with a customer, every supervisor correction should improves the future agent executions.
+    1. Every agent execution, every interaction with a customer, every supervisor correction should improve the future agent executions.
     2. Execution logs reusability when the agent scaffold changes
     3. CI/CD evaluations to automatically detect regressions.
 
@@ -123,7 +123,7 @@ def my_function():
     return "Hello, world!"
 ```
 
-Sentinel is comprised of a Python package and a user interface that you can install and run locally using Docker. The UI gives you deep insights into agent actions, tools that the agent is using, and how supervisors have responded to requests by your agent to execute those tools. 
+Sentinel is a Python package and a user interface that you can install and run locally using Docker. The UI gives you deep insights into agent actions, tools that the agent is using, and how supervisors have responded to requests by your agent to execute those tools. 
 
 ![Sentinel UI](/img/blog/ui.png "Sentinel UI")
 
@@ -149,7 +149,7 @@ When your agent decides to call a function, before the function call is executed
 - `escalate`: the decision is deferred to the next Supervisor in the chain
 - `modify`: the action is accepted, with modifications
 
-Supervisors enable us to catch unintended agent behaviors at runtime, and very often allow the agent to correct it’s own actions. Supervisors are very simple, and highly configurable, making them a very powerful tool for quickly enforcing policies and behaviors onto an LLM-based system. 
+Supervisors enable us to catch unintended agent behaviors at runtime, and very often allow the agent to correct its own actions. Supervisors are very simple, and highly configurable, making them a very powerful tool for quickly enforcing policies and behaviors onto an LLM-based system. 
 
 ### Out-of-the-box Supervisors
 
@@ -169,9 +169,9 @@ Some agent actions might need human approval. For this, we provide a Human in th
 
 The most basic usage of our Human in the Loop Supervisor is to add it directly to a tool with no other Supervisors. In this case, every execution of this tool will need human approval. 
 
-A more sophisticated use of the Human in the Loop Supervisor is to chain supervisos together, such that the human only steps in to approve actions when multiple automated supervisors did not pass.
+A more sophisticated use of the Human in the Loop Supervisor is to chain supervisors together, such that the human only steps in to approve actions when multiple automated supervisors did not pass.
 
-The human operator is presented with all context needed to make a decision in the UI. This includes previous messages, tool calls, current tool call and arguments, annd previous supervisors that escalated along with their reasoning. The human can approve, reject or modify the tool call to steer the agent on a correct trajectory.
+The human operator is presented with all context needed to make a decision in the UI. This includes previous messages, tool calls, current tool call and arguments, and previous supervisors that escalated along with their reasoning. The human can approve, reject or modify the tool call to steer the agent on a correct trajectory.
 
 ## Mocking
 
