@@ -49,51 +49,28 @@ const BlogPost = (props: {
   slug: string,
   content: string,
 }) => (
-  <main className="flex justify-center items-center min-h-screen py-8 px-2">
-    <div className="container max-w-3xl px-3">
-      <div className="pt-3">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="text-left">
-            <Link href="/" className="no-underline">
-              <h4 className="text-2xl">&#60;- home</h4>
-            </Link>
-          </div>
-          <div className="text-right">
-            <Link href={`https://github.com/joehewett/super-simple-blog/blob/main/posts/${props.slug}.md`} className="no-underline">
-              <Image
-                src="/img/github.png"
-                alt="GitHub"
-                width={30}
-                height={30}
-                className="inline-block"
-              />
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      <div className="pt-3">
-        <div className="grid grid-cols-1 gap-3">
-          <div className="space-y-8">
-            <Image
-              src={props.frontMatter.thumbnail}
-              alt="Thumbnail"
-              width={800}
-              height={400}
-              className="w-full mt-4"
-            />
-            <article
-              className='prose lg:prose-lg'
-              dangerouslySetInnerHTML={{
-                __html: md().render(props.content
-                )
-              }}
-            />
-          </div>
+  <div className="container mx-auto">
+    <div className="pt-3">
+      <div className="grid grid-cols-1 gap-3">
+        <div className="space-y-8">
+          <Image
+            src={props.frontMatter.thumbnail}
+            alt="Thumbnail"
+            width={800}
+            height={400}
+            className="w-full mt-4"
+          />
+          <article
+            className='prose lg:prose-lg'
+            dangerouslySetInnerHTML={{
+              __html: md().render(props.content
+              )
+            }}
+          />
         </div>
       </div>
     </div>
-  </main>
+  </div>
 );
 
 export default BlogPost;

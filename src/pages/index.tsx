@@ -4,6 +4,10 @@ import fs from "fs";
 import path from "path";
 import { BlogCard } from '@/components/BlogCard';
 import Markdown from 'marked-react'
+import { CardTitle, CardDescription } from '@/components/ui/card';
+import { MailIcon, CalendarIcon, BookIcon } from 'lucide-react';
+import { useState } from 'react';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
 
 const Home = (props: {
   posts: [{
@@ -17,31 +21,20 @@ const Home = (props: {
     new Date(b.frontMatter.date).getTime() - new Date(a.frontMatter.date).getTime()
   ));
 
+  const [copied, setCopied] = useState(false);
+
   return (
-    <>
-      {/* <Markdown value="# Hello" breaks={undefined} gfm={undefined} /> */}
-      <main className="flex justify-center items-center min-h-screen py-24">
-        <div className="container mx-auto px-4">
-          <div className="px-8">
-            <h1 className="text-4xl font-bold">Entropy Labs</h1>
-            <h2 className="text-2xl text-right">Runtime agent eval</h2>
-
-          </div>
-
-          <div className="mt-10">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {sorted.map(({ slug, frontMatter: { title, description }, frontMatter }) => (
-                <Link key={slug} href={`/blog/${slug}`} passHref>
-                  <div className="w-full">
-                    <BlogCard title={title} description={description} frontMatter={frontMatter} />
-                  </div>
-                </Link>
-              ))}
+    <div className="container mx-auto px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
+        {sorted.map(({ slug, frontMatter: { title, description }, frontMatter }) => (
+          <Link key={slug} href={`/${slug}`} passHref>
+            <div className="w-full">
+              <BlogCard title={title} description={description} frontMatter={frontMatter} />
             </div>
-          </div>
-        </div>
-      </main >
-    </>
+          </Link>
+        ))}
+      </div>
+    </div>
   )
 }
 
@@ -79,3 +72,4 @@ export async function getStaticProps() {
 }
 
 export default Home
+
