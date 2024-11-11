@@ -91,7 +91,8 @@ As there aren’t good existing solutions for this, we are building the solution
     2. Execution logs reusability when the agent scaffold changes
     3. CI/CD evaluations to automatically detect regressions.
 
-## Releasing Sentinel
+
+# Releasing Sentinel
 
 To address the above challenges, we are launching the closed beta for [Sentinel](https://docs.entropy-labs.ai/), a powerful new way to improve agent reliability and safety.
 
@@ -108,7 +109,7 @@ The main functionalities that Sentinel provides:
 2. Human in the Loop
 3. Tool stubbing for deterministic testing of agents 
 
-# Supervisors
+## Supervisors
 
 A Supervisor is a function that returns a decision when given some information about the agent and its desired action. 
 
@@ -137,7 +138,7 @@ The configuration of a custom LLM Supervisor for example, could be as simple as 
 
 Supervisors can be chained together and run in parallel. For example fast deterministic supervisor can escalate to AI-based supervisor that can escalate to human. Developers can create multiple supervisor chains that can run in parallel, each checking for specific behavior.
 
-# Human in the Loop
+## Human in the Loop
 
 Some agent actions might need human approval. For this, we provide a Human in the Loop Supervisor that works with our UI, giving you immediate human control. 
 
@@ -149,9 +150,13 @@ More sophisticated usage is to have human to only step in when multiple automate
 
 Human is presented in the web UI with all context needed to make a decision. This includes previous messages, tool calls, current tool call and arguments, previous supervisors that escalated etc. Human can approve, reject or modify the tool call to steer the agent on a correct trajectory.
 
-# Mocking
+## Mocking
 
 When testing LLM application, it’s useful to be able to test the . Since our `supervise()` decorator wraps around the tool calls, it can also be used to stub the tool calls. This is useful when the tool call can have impact on your system (such as changing data in a database or writing files to disk)
+
+
+
+
 
 # Find out More
 
