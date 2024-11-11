@@ -6,7 +6,7 @@ thumbnail: '/img/blog/brain.jpg'
 ---
 
 # You Also Need Supervision
-LLM-backed systems represent an entirely new category of software. Giving runtime decision making authority to AI agents that can behave competently in the face of uncertainty is a powerful paradigm shift that we are only just beginning to tap into, but it also brings with it a list of unsolved problems:
+LLM-backed systems represent an entirely new category of software. We can now hand off some runtime decision making authority to AI agents that can behave competently in the face of uncertainty. This is a powerful paradigm shift, but it also brings with it a list of unsolved problems:
 
 - What sort of decisions should your software make on your behalf?
 - How should human operators supervise agents in a scalable way? 
