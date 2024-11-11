@@ -5,44 +5,169 @@ description: 'Testing generalist agents is hard, and we need evaluation techniqu
 thumbnail: '/img/blog/thumbnail16.png'
 ---
 
-# Evaluating Generalist Agents
+# You Also Need Supervision
 
-Researchers are still figuring out how to evaluate language models to find out what they can and can't do, and to track their progress over time. As we build more generalist systems, however, we're going to need even more sophisticated evaluation techniques. 
+AI-based software represents an entirely new category of software engineering, and brings with it an extensive list of unsolved problems:
 
-You can't apply the same techniques used to test deterministic software systems to humans. CI pipeline tests and unit tests aren't the right framework for evaluating our performance.
+- What sort of decisions should your software make on your behalf?
+- What does it mean for your system to self-improve at runtime?
+- How do you evaluate success rates of increasingly general purpose software systems?
 
-Usually our testing of software systems roughly corresponds to putting in $value and checking that we get $output. But running this testing paradigm on humans is difficult and results in things like LeetCode style interview questions, which are contrived and map poorly to the actual work of an engineer.
+We need new ways of thinking about our software in order to move forward, but we have good reasons to believe that the upside of getting it right is astronomical. 
 
-If someone is doing a highly repetitive job like widget manouvering, you might be able to use metrics like "how many widgets moved from location A to B", but a job like software engineering is too complex to evaluate in this way. Testing whether a developer who is confronted with some situation X outputs exactly Y is a fool's errand, and counting lines of code contributed results in instant catastrophic Goodharting. There are many ways to complete an engineering task with different tradeoffs, and the "correct" answer is often subtle, impossible to judge, or context dependent.
+Today, every company deploying agents goes through the same life cycle:
 
-As generalist agents become useful for solving real tasks, we will need new ways to evaluate them. We'll define a generalist agent as something like an LLM with tool usage (at a minimum internet access and code execution?) running inside a for-loop on a computer. Consider this following tasks we could give this agent:
+1. *Build a prototype*
+2. *Vibe-check*
+3. *Deployment*
+4. *Agent makes a mistake (customer complains)*
+5. *Fix/Improve agent → Goes to 2 (Repeat unsustainably)*
 
-write a web scraper to identify the best investment opportunities
-fill $role at $company by finding the most suitable candidates online and hiring them
-identify vulnerabilities in a company's network and write a report on them
-find the most suitable location for my new $structure given $spec and write a 30 page executive report on it.
-Today's LLM evaluations are rising to the challenge. Early eval suites like Winograd and HellSwag did a good job of testing the capabilities of LLMs on multiple choice or verifiable questions, but they were limited in scope. New eval suites like SWE-Bench provide verification mechanisms that don't rely on a single right answer, in this case by leveraging existing unit tests to see if the code written to fix a given GitHub issue is good or not.
+It is only after many iterations of this cycle that developers realize that perfect agents can’t exist. The more freedom to make decisions and affect the world they have, the more opportunities there are to make mistakes; *intelligent systems are necessarily imperfect.*
 
-But where is the trajectory of increasingly general evaluation techniques taking us?
+### What’s wrong with offline evaluations?
 
-One way of reasoning about this is to think about how we eval humans* who do intellectually demanding work like running a company or making new scientific contributions. It seems like we use an unstructured combination of socially constructed metrics like stock price, citation count and even more nebulous metrics like social standing and perceived skill to evaluate them.
+At this point, many try to write offline evaluations and basic model input/output guardrails. Offline evaluations are necessary, and we use these in many other settings for traditional machine learning models, like computer vision systems for ID verification. In theory, we can use the results to iteratively improve the agent by modifying its scaffolding, prompts and by fine-tuning the underlying model. If, when we’re finished, our offline tests map well to the scenarios that the agent will face at runtime, then we should have some kind of idea of how the agent will perform in the wild. 
 
-What are the equivalent metrics we would use for a generalist non-human agent? We can't keep writing deterministic eval suites. We're probably going to need vibes-based mechanisms that work for arbitrary domains.
+One key problem with evaluating agents in this way is that the action space is much larger. The space of possible actions when evaluating whether an ID is valid or not is quite small (accept or reject) and building a test set is quite easy (gather photos of ID cards). In the case of an agent that has a much wider range of actions (e.g. dozens of possible tool calls that it can choose between at will, or the ability to execute code), the action space is much larger, and building tests sets to evaluate the agent on is extremely difficult. 
 
-One key reason for this is that test suites are very brittle. Consider an LLM pipeline that does research on potential clients and then engages in cold outbound email as well as customer development over time. You might have a suite of email chains that historically were considered good, but if you change the underlying prompt to make the agent more aggressive/friendly or change the way it uses internet resources, the old set of "good" email chains might not accurately reflect the agent's current outputs. The same problem applies if you try to change the domain you're operating in from B2B SaaS HR tech to B2G widget manufacturing. You'd need a new set of email chains that were considered good for that domain.
+So if offline testing is insufficient to understand the runtime behavior of agentic systems, what’s the solution?
 
-A better approach might be to try to divine the revenue impact of that agent. If the agent is able to generate leads and close deals, we can track the revenue generated by that agent and use that as a metric. This feels like a sparse reward problem and might be too noisy to be useful, though.
+We believe that to make agents work, we’re going to need entirely new evaluation methods,  interfaces, and oversight mechanisms. To deploy reliable, safe and continuously improving agents we’ll need:
 
-Another, perhaps better way of solving this would be to have a human in the loop who could give signals as to their perceived performance of that agent. By upvoting or downvoting certain outputs, and potentially even providing feedback on or modifying the email** that the agent wrote (preferably before it is sent so that we can intervene before it causes damage to relationships), we can start to collect signal as to the efficacy of our agent and guide the agent towards outputs that are more likely to be useful. 
+1. Offline evaluations that you can rapidly build and destroy at will, allowing tight development loops
+2. Runtime agent supervision that is scalable to millions of agent actions 
+3. Seamless human-agent interaction
 
-In doing this we also gather signal from human experts that can be used to train more effective systems. Ranking between LLM outputs if all of the outputs are bad is not useful, but having a domain-expert human analyse and rate/modify the agents output would be very useful. Consider that one could allow the overseeing human to modify the proposed action or text from the agent, and that the human steers the agent towards a satisfactory end result (instead of it decohering or otherwise failing at its task). The resulting chain of reasoning and actions from input task to successful completion is a valuable source of training data that might not have otherwise existed if there was not an efficient way of giving feedback to and agent during its execution cycle. 
+As there aren’t good existing solutions for this, we are building the solution. Here we are outlining necessary components of the overall supervision and evaluation system of AI Agents
 
-Collecting this signal gives us the ability to start elo ranking agents on specific tasks too, in a similar manner to [LMSys](https://lmsys.org/), but agnostic to domain. You could A/B test your proposed agent on.
+1. **Offline Evaluations**
+    
+    Agent must be tested before real-world deployment on evaluation examples, past executions and new simulations. Any non-deterministic component and downstream components  should be evaluated before deployment. It has to be possible to run extremely fast iterative offline experimentation.
+    
+    1. Real-time Observability and Monitoring
+    2. Toggle non-determinism for debugging
+    3. Evals (tasks, examples, scoring functions)
+    4. Simulation
+2. **Online Supervision**
+    
+    Offline evaluations can’t rule out unintended behaviour at runtime. Supervision at runtime is crucial to enforce defined rules and policies. Every agent action with significant impact should have associated supervisors.
+    
+    1. **Policy Enforcement** 
+        
+        Supervisors need to be able to actively change agents behaviour to prevent or correct bad actions.
+        
+    2. **Highly Configurable Supervisors**
+        
+        Each agent action requires specific type of supervision. Customers can create different supervisor chains depending on the action (e.g. sending emails, updating database, command execution)
+        
+    3. Supervisors hierarchy
+        
+        Supervision is hierarchical. Similar to actions in real-life where for more high impact actions, more . This is more prevalent with ai agents where some form of supervision might be faster and cheaper. The common pattern we expect to emerge will be deterministic supervisor escalating to AI-based supervisor escalating to human supervisor.
+        
+    4. Supervisors Independence
+        
+        Supervisors operate independently from their monitored AI agents. They have separate instruction sets and data access permissions.
+        
+3. **Human in the Loop**
+    
+    Many actions will still require human approval. We expect that soon 1 person could efficiently oversee 10,000+ agents with only specific actions needing approval. To make approval extremely fast and intuitive, there need to be configurable UIs for agent types and human roles.
+    
+    1. **Human feedback and correction**
+    2. **Deep Observability (context-aware)**
+        
+        To effectively supervise agentic system and make a decision in real-time, granular observation into agent’s execution is needed. 
+        
+    3. Context-specific
+        
+        We need to present relevant context to the human operator (e.g. summary of last messages, risk scores for each action). AI should actively find relevant information to surface to the human.
+        
+    4. **Agent-specific views**
+        
+        UIs need to be tailored to each agent. Different agents require different UIs (e.g. screenshots for web-browsing agent).
+        
+4. Easy to Integrate
+    1. Python package
+        1. OpenAI, LangChain, Inspect AI 
+        2. Anthropic, LangGraph, …
+5. Scalable
+    
+    The supervision needs to scale with growing agent capabilities and number of agents.
+    
+    1. 
+6. Self-improving Supervision and Agent design
+    1. Every agent execution, every interaction with a customer, every supervisor correction should improves the future agent executions.
+    2. Execution logs reusability when the agent scaffold changes
+    3. CI/CD evaluations to automatically detect regressions.
 
-This is a messy approach, requires human oversight and judgement, and is far from perfect, but it's applicable to ~arbitrary domains, gives us instant signal, and doesn't require us to come up with a comprehensive set of tests beforehand. It allows us to build and iterate on agentic pipelines in a loop, tweaking the prompt and tool usage until we get a result that is good enough to be useful, using human feedback as our guide.
+## Releasing Sentinel
 
-This should not just be a process used for offline training for LLMs. All businesses need evaluation suites to test if their code and agents are working as intended. When you update a critical prompt in your B2B Agent-as-a-Service pipeline, you need to know that you haven't just decimated the efficacy of your client's agents downstream. Currently, you'd likely break all of their tests but you'd have no way of knowing whether it was for the better or not.
+We are launching the closed beta for Sentinel, a powerful new way to improve agent reliability and safety.
 
-If those downstream clients (or their end users) could give instant feedback on their agent (potentially before it is actually deployed), you'd be able to identify, iterate on and fix problems introduced into agentic systems without having to wait for a new test suite to be written and rolled out. This seems like it would allow us to decouple our agent pipeline from a rigid test suite, and deploy it into arbitrary domains with a more robust understanding of how it is actually performing in the wild. 
+Sentinel makes it much easier to rapidly prototype, evaluate and monitor agents in the wild. In just a few lines of code, you can add *Supervisors* to your agent which can catch unintended behaviors and edge cases. 
 
-The obvious next step is to then take this human preference data and train models to predict what a human would rate an agent's action or output. 
+Sentinel is *not* an agent framework. It can hook into any agent of your choice and instantly give you runtime safety and reliability guarantees. 
+
+Sentinel is comprised of a Python package and a user interface that you can install and run locally using Docker. The UI gives you deep insights into agent actions, tools that the agent is using, and how supervisors have responded to requests by your agent to execute those tools. 
+
+The UI allows human operators to manually approve, reject or modify agent tool requests. A common design pattern is to have automated supervisors run first and only escalate to human when problematic behavior is detected. 
+
+The main functionalities that Sentinel provides: 
+1. Customizable supervisors for any tool call
+2. Human in the Loop
+3. Tool stubbing for deterministic testing of agents 
+
+# Supervisors
+
+A Supervisor is a function that returns a decision when given some information about the agent and its desired action. 
+
+Developers can use our Python decorator to attach a list of supervisors to any function that that is available to your LLM. 
+
+### How do Supervisors work?
+
+When your agent decides to call a function, before the function call is executed, the supervisors attached to the function will check whether the execution can proceed and return a decision which determines what happens next:
+
+- `approved:` the tool is executed
+- `reject`: the tool is not executed the agent must retry
+- `escalate`: the decision is deferred to the next Supervisor in the chain
+- `modify`: the action is accepted, with modifications
+
+Supervisors enable us to catch unintended agent behaviors at runtime, and very often allow the agent to correct it’s own actions. Supervisors are very simple, and highly configurable, making them a very powerful tool for quickly enforcing policies and behaviors onto an LLM-based system. 
+
+### Out-of-the-box Supervisors
+
+We provide a wide range of supervisors out-out-the-box, so you can get started supervising your agents immediately. 
+
+### Configuring a new Supervisor for your use case
+
+The configuration of a custom LLM Supervisor for example, could be as simple as passing a company policy document to an LLM and asking it whether the current agent’s trajectory is inline with the policy. The LLM can then return either approve, reject, modify, escalate or terminate to the agent. Supervisors implementation is extremely flexible. It can include another AI models or deterministic supervisors such as regex rules. We provide some common supervisors that can be configured out of the box, e.g. LLM supervisor, Bash commands supervisors, Python code execution supervisor. But Sentinel users can bring their own specialized supervisors tailored to the agent and provided tool calls. 
+
+### Chaining Supervisors together
+
+Supervisors can be chained together and run in parallel. For example fast deterministic supervisor can escalate to AI-based supervisor that can escalate to human. Developers can create multiple supervisor chains that can run in parallel, each checking for specific behavior.
+
+*[add screenshot from UI of multiple supervisor chains attached to a tool call?]*
+
+# Human in the Loop
+
+Some agent actions might need human approval. For this, we provide a Human in the Loop Supervisor that works with our UI, giving you immediate human control. 
+
+### High-risk scenario
+
+The most basic usage of our Human in the Loop Supervisor is to add it directly to a tool with no other Supervisors. In this case, every execution of this tool will need human approval. 
+
+More sophisticated usage is to have human to only step in when multiple automated supervisors did not pass.
+
+Human is presented in the web UI with all context needed to make a decision. This includes previous messages, tool calls, current tool call and arguments, previous supervisors that escalated etc. Human can approve, reject or modify the tool call to steer the agent on a correct trajectory.
+
+*[add image of our HITL interface?]*
+
+# Mocking
+
+When testing LLM application, it’s useful to be able to test the . Since our `supervise()` decorator wraps around the tool calls, it can also be used to stub the tool calls. This is useful when the tool call can have impact on your system (such as changing data in a database or writing files to disk)
+
+# Find out More
+
+Go to our [Documentation](https://docs.entropy-labs.ai/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://www.notion.so/Blog-Ideas-9d1e5b516b99474c80db226b64f71829?pvs=21) on how to start using Sentinel. Check out one of our [examples](...) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
+
+If you found any of this relevant to your use case! … [Book a demo!!!](https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo)

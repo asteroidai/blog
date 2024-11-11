@@ -17,7 +17,7 @@ function Blog({ Component, pageProps }: AppProps) {
 
   return (
     <main>
-      <div className="font-serif max-w-4xl mx-auto pb-32">
+      <div className="font-serif mx-auto pb-32 max-w-6xl">
         <div className="container mx-auto space-y-16 pt-36 px-8">
           <Card className="outline-none shadow-none border-none">
             <CardHeader className="px-0 pb-12">
