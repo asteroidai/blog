@@ -2,7 +2,7 @@
 title: 'Evaluating Generalist Agents'
 date: '2024-11-11T00:07:44.675Z'
 description: 'Testing generalist agents is hard, and we need evaluation techniques that can keep up with them.'
-thumbnail: '/img/blog/agents.jpg'
+thumbnail: '/img/blog/abstract.jpg'
 ---
 
 # You Also Need Supervision

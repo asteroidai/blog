@@ -116,7 +116,7 @@ const BlogPost = (props: {
               alt="Thumbnail"
               width={800}
               height={400}
-              className="w-full mt-4 rounded-md"
+              className="w-full rounded-md"
             />
             <article
               className='prose lg:prose-lg'
