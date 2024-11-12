@@ -27,11 +27,7 @@ These fundamental questions pose significant challenges, and we're very much in 
 ### Why agents are hard
 Today, every company deploying agents goes through the same life cycle:
 
-1. *Build a prototype*
-2. *Vibe-check*
-3. *Deployment*
-4. *Agent makes a mistake (customer complains)*
-5. *Fix/Improve the agent → Go to 2*
+![](/img/blog/lifecycle.png)
 
 It is only after many iterations of this cycle that developers realize that perfect agents can’t exist. The more freedom to make decisions and affect the world they have, the more opportunities there are to make mistakes; *intelligent systems are necessarily imperfect.*
 
