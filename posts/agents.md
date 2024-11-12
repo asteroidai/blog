@@ -52,54 +52,7 @@ We believe that to make agents work, we’re going to need entirely new evaluati
 
 There isn't a great existing solution for this, so we're building it. In the following we'll outline the necessary components of the overall supervision and evaluation system of AI Agents that we're planning to build.
 
-1. **Offline Evaluations**
-    Agent must be tested before real-world deployment on evaluation examples, past executions and new simulations. Any non-deterministic component and downstream components  should be evaluated before deployment. It has to be possible to run extremely fast iterative offline experimentation.
-    
-    1. Real-time Observability and Monitoring
-    2. Toggle non-determinism for debugging
-    3. Evals (tasks, examples, scoring functions)
-    4. Simulation
-
-2. **Online Supervision**
-    Offline evaluations can’t rule out unintended behaviour at runtime. Supervision at runtime is crucial to enforce defined rules and policies. Every agent action with significant impact should have associated supervisors.
-    
-    1. **Policy Enforcement** 
-        Supervisors need to be able to actively change agents behaviour to prevent or correct bad actions.
-        
-    2. **Highly Configurable Supervisors**
-        Each agent action requires specific type of supervision. Customers can create different supervisor chains depending on the action (e.g. sending emails, updating database, command execution)
-        
-    3. **Supervisor Hierarchy**
-        Supervision is hierarchical. Similar to actions in real-life where for more high impact actions, more supervision is needed. This is more prevalent with AI agents where some form of supervision might be faster and cheaper. The common pattern we expect to emerge will be deterministic supervisors escalating to AI-based supervisors, which in turn may escalate to human supervisors.
-        
-    4. **Supervisors Independence**
-        Supervisors operate independently from their monitored AI agents. They have separate instruction sets and data access permissions.
-        
-3. **Human in the Loop**
-    Many actions will still require human approval. We expect that soon 1 person could efficiently oversee 10,000+ agents with only specific actions needing approval. To make approval extremely fast and intuitive, there need to be configurable UIs for agent types and human roles.
-    
-    1. **Human feedback and correction**
-    2. **Deep Observability (context-aware)**
-        To effectively supervise agentic system and make a decision in real-time, granular observation into agent’s execution is needed. 
-        
-    3. **Context-specific**
-        We need to present relevant context to the human operator (e.g. summary of last messages, risk scores for each action). AI should actively find relevant information to surface to the human.
-        
-    4. **Agent-specific views**
-        UIs need to be tailored to each agent. Different agents require different UIs (e.g. screenshots for web-browsing agent).
-        
-4. **Easy to Integrate**
-    1. **Python package**
-        1. OpenAI, LangChain, Inspect AI 
-        2. Anthropic, LangGraph, and others
-
-5. **Scalable**
-    The supervision needs to scale with growing agent capabilities and number of agents.
-
-6. **Self-improving Supervision and Agent design**
-    1. Every agent execution, every interaction with a customer, every supervisor correction should improve the future agent executions.
-    2. Execution logs reusability when the agent scaffold changes
-    3. CI/CD evaluations to automatically detect regressions.
+![](/img/blog/infra.png)
 
 ---
 
