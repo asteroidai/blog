@@ -12,7 +12,7 @@ thumbnail: '/img/blog/head.jpg'
 </div>
 
 
-LLM-backed systems represent an entirely new category of software. My integrating LLMs into our systems, we can hand off runtime decision-making authority to AI agents that behave competently in the face of uncertainty. This is a powerful paradigm shift, which is enabling applications that were previously impossible:
+LLM-backed systems represent an entirely new category of software. By integrating LLMs into our systems, we can hand off runtime decision-making authority to AI agents that behave competently in the face of uncertainty. This is a powerful paradigm shift, which is enabling applications that were previously impossible:
 - Autonomous software engineers that can write code, debug and deploy to production
 - Customer support agents that can resolve complex customer issues autonomously
 - Research assistants that can aid in critical decision making
