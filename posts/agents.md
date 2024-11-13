@@ -8,11 +8,22 @@ thumbnail: '/img/blog/head.jpg'
 # You Also Need Supervision
 
 <div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 1rem; margin: 2rem 0;">
-<strong>TL;DR:</strong> Agents are more reliable and less error prone when they have runtime supervision and evaluation. We're launching <strong>Sentinel</strong>, a new way of making agents easier to build, more reliable and more useful, by adding automated supervision and human-in-the-loop controls. <a href="https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo">Reach out for beta access</a> and we'll help you integrate into your existing system in a few lines of code.
+<strong>TL;DR:</strong> We're launching <strong>Sentinel</strong>, a supervision system that makes AI agents more reliable through automated oversight and human controls. <a href="https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo">Get beta access</a> and run it on your agent in a few lines of code.
 </div>
 
+### The hard problem of agents
 
-LLM-backed systems represent an entirely new category of software. By integrating LLMs into our systems, we can hand off runtime decision-making authority to AI agents that behave competently in the face of uncertainty. This is a powerful paradigm shift, which is enabling applications that were previously impossible:
+We believe that to make agents work at scale, we’re going to need entirely new evaluation methods, interfaces, and oversight mechanisms. To deploy reliable, safe and continuously improving agents we’ll need:
+
+1. Evaluations that build themselves
+2. Runtime agent supervision that is scalable to millions of agents
+3. Seamless human-agent interaction that allows for fast, intuitive and context-aware oversight
+
+There isn't a great existing solution for this, so we're building it. It's called [Sentinel](#sentinel-beta), and you can join our beta [here](#find-out-more).
+
+### Agents as a new category of software
+
+LLM-backed agents represent an entirely new category of software. By integrating LLMs into our systems, we can hand off runtime decision-making authority to AI agents that behave competently in the face of uncertainty. This is a powerful paradigm shift, which is enabling applications that were previously impossible:
 - Autonomous software engineers that can write code, debug and deploy to production
 - Customer support agents that can resolve complex customer issues autonomously
 - Research assistants that can aid in critical decision making
@@ -24,7 +35,7 @@ but these new applications also bring with them several unsolved problems:
 
 These fundamental questions pose significant challenges, and we're very much in the early days of defining these problem statements and venturing towards solutions. If we get them right, we have good reason to believe that extraordinary potential lies ahead.
 
-### Why agents are hard
+### Agent development is wildly inefficient
 Today, many companies deploying agents go through the same life cycle:
 
 ![](/img/blog/lifecycle.png)
@@ -48,21 +59,14 @@ The impact of individual actions is hard to evaluate. When an agent executes an 
 
 It appears that traditional LLM evaluations are insufficient for the agent paradigm, so what's next?
 
-### Runtime Supervision
-We believe that to make agents work, we’re going to need entirely new evaluation methods, interfaces, and oversight mechanisms. To deploy reliable, safe and continuously improving agents we’ll need:
-
-1. Offline evaluations that build themselves
-2. Runtime agent supervision that is scalable to millions of agents
-3. Seamless human-agent interaction that allows for fast, intuitive and context-aware oversight
-4. A way to integrate the human feedback from 3 into 1 and 2.
-
-There isn't a great existing solution for this, so we're building it. In the following we'll outline the necessary components of the overall supervision and evaluation system of AI Agents that we're planning to build.
+### The future of agent development
+The following is a rough sketch of what we believe a good solution to agent supervision and evaluation would look like. Some of these features are available today with Sentinel, and we're actively working on the rest.
 
 ![](/img/blog/infra.png)
 
 ---
 
-# Releasing Sentinel
+# Sentinel Beta
 To address the above challenges, we are launching the closed beta for [Sentinel](https://docs.entropy-labs.ai/), a powerful new way to improve agent reliability and safety.
 
 Sentinel makes it much easier to rapidly prototype, evaluate and monitor agents in the wild. In just a few lines of code, you can add *Supervisors* to your agent which can catch unintended behaviors and edge cases. 
