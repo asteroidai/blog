@@ -130,6 +130,6 @@ When testing LLM application, it’s useful to be able to test the application w
 
 # Find out More
 
-Go to our [Documentation](https://docs.entropy-labs.ai/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://www.notion.so/Blog-Ideas-9d1e5b516b99474c80db226b64f71829?pvs=21) on how to start using Sentinel. Check out one of our [examples](...) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
+Go to our [documentation](https://docs.entropy-labs.ai/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://docs.entropy-labs.ai/quickstart) on how to start using Sentinel. Check out one of our [examples](https://docs.entropy-labs.ai/inspect-ai) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
 
 If you'd like to deploy agents quickly, reliably and safely with Sentinel, [book a demo](https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo) with us.
