@@ -103,8 +103,11 @@ const BlogPost = (props: {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="flex gap-8">
-        {/* Main content - using the existing max-width from _app.tsx */}
+      <div className="flex flex-col md:flex-row gap-8">
+        <div className="w-full md:w-64 md:flex-shrink-0">
+          <TableOfContents items={tocItems} />
+        </div>
+
         <div className="font-serif max-w-4xl">
           <div className="space-y-16">
             <Image
@@ -121,11 +124,6 @@ const BlogPost = (props: {
               }}
             />
           </div>
-        </div>
-
-        {/* Table of Contents sidebar */}
-        <div className="w-64 flex-shrink-0">
-          <TableOfContents items={tocItems} />
         </div>
       </div>
     </div>
