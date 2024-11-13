@@ -1,14 +1,14 @@
 ---
 title: 'Evaluating Generalist Agents'
 date: '2024-11-11T00:07:44.675Z'
-description: 'Testing generalist agents is hard, and we need evaluation techniques that can keep up with them.'
+description: 'Evaluating generalist agents is hard, and we need evaluation techniques that can keep up with them.'
 thumbnail: '/img/blog/head.jpg'
 ---
 
 # You Also Need Supervision
 
 <div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 1rem; margin: 2rem 0;">
-<strong>TL;DR:</strong> We're launching Sentinel, a new way of making agents easier to build, more reliable and more useful, by adding automated supervision and human-in-the-loop controls. <a href="https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo">Reach out for beta access</a> and we'll help you integrate into your existing system in a few lines of code.
+<strong>TL;DR:</strong> Agents are more reliable and less error prone when they have runtime supervision and evaluation. We're launching <strong>Sentinel</strong>, a new way of making agents easier to build, more reliable and more useful, by adding automated supervision and human-in-the-loop controls. <a href="https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo">Reach out for beta access</a> and we'll help you integrate into your existing system in a few lines of code.
 </div>
 
 
@@ -25,26 +25,36 @@ but these new applications also bring with them several unsolved problems:
 These fundamental questions pose significant challenges, and we're very much in the early days of defining these problem statements and venturing towards solutions. If we get them right, we have good reason to believe that extraordinary potential lies ahead.
 
 ### Why agents are hard
-Today, every company deploying agents goes through the same life cycle:
+Today, many companies deploying agents go through the same life cycle:
 
 ![](/img/blog/lifecycle.png)
 
-It is only after many iterations of this cycle that developers realize that perfect agents can’t exist. The more freedom to make decisions and affect the world they have, the more opportunities there are to make mistakes; *intelligent systems are necessarily imperfect.*
+In this world, it is frequently the case that developers do not know whether code changes they are making are actually working until the system has been deployed, and they might not uncover newly introduced issues until a customer reports them.
 
-### What’s wrong with offline evaluations?
+This agent development lifecycle makes the development loop slow and frustrating.
 
-At this point, developers might try to write evaluations and basic input/output guardrails. We use these in many other settings for traditional machine learning models, like computer vision systems for ID verification. In theory, these tests would allow us to iteratively improve the agent by modifying its scaffolding, prompts and by fine-tuning the underlying model. If our offline tests map well to the scenarios that the agent will face at runtime, then we should have some idea as to how the agent will perform in the wild. 
+### Evals are a partial solution
 
-One key problem with evaluating agents in this way is that the action space of an agent is much larger than that of a traditional machine learning model. A model assessing the validity of an ID card has a very small action space (accept or reject), and building a test set is quite easy (gather photos of ID cards). In the case of an agent that has a much wider range of actions (e.g. dozens of possible tool calls that it can choose between at will, or the ability to execute code), the action space is much larger, and building faithful tests to evaluate these agents is extremely difficult. 
- 
-So if offline testing is insufficient to understand the runtime behavior of agentic systems in complex environments, what’s next?
+Traditional evaluation approaches, like those used for machine learning models, involve creating test sets to measure model performance offline. In theory, these tests would allow us to iteratively improve agents by modifying their scaffolding, prompts and underlying models. If our offline tests map well to runtime scenarios, we should be able to predict how the agent will perform in production.
+
+But as well as being slow and labor-intensive, building comprehensive test sets for agents is extremely difficult. While it's straightforward to create test cases for simple classification tasks (like ID verification where the model just needs to output "accept" or "reject"), agents can take complex sequences of actions that are hard to anticipate and validate.
+
+The impact of individual actions is hard to evaluate. When an agent executes an action (like running a bash command or modifying code), it's difficult to assess:
+
+- How this action will affect the environment and future states
+- Whether this action increases or decreases the probability of task success
+- What potential failure modes or side effects might occur
+- The impact of this action on the world, and the potential consequences of failure
+
+It appears that traditional LLM evaluations are insufficient for the agent paradigm, so what's next?
 
 ### Runtime Supervision
 We believe that to make agents work, we’re going to need entirely new evaluation methods, interfaces, and oversight mechanisms. To deploy reliable, safe and continuously improving agents we’ll need:
 
-1. Offline evaluations that you can rapidly build and destroy at will, allowing tight development loops
-2. Runtime agent supervision that is scalable to millions of agent actions 
+1. Offline evaluations that build themselves
+2. Runtime agent supervision that is scalable to millions of agents
 3. Seamless human-agent interaction that allows for fast, intuitive and context-aware oversight
+4. A way to integrate the human feedback from 3 into 1 and 2.
 
 There isn't a great existing solution for this, so we're building it. In the following we'll outline the necessary components of the overall supervision and evaluation system of AI Agents that we're planning to build.
 
@@ -81,7 +91,7 @@ The UI allows human operators to manually approve, reject or modify agent tool r
 The main functionalities that Sentinel provides: 
 1. Customizable supervisors for any tool call
 2. Human in the Loop
-3. Tool stubbing for deterministic testing of agents 
+3. Tool stubbing for deterministic evaluation of agents 
 
 ## Supervisors
 
@@ -124,7 +134,7 @@ The human operator is presented with all context needed to make a decision in th
 
 ## Mocking
 
-When testing LLM application, it’s useful to be able to test the application without the risk of unintended side effects. Since our <code>supervise()</code> decorator wraps around the tool calls, it can also be used to stub the tool calls. This is useful when the tool call can have impact on your system (such as changing data in a database or writing files to disk)
+When evaluating LLM applications, it’s useful to be able to test the application without the risk of unintended side effects. Since our <code>supervise()</code> decorator wraps around the tool calls, it can also be used to stub the tool calls. This is useful when the tool call can have impact on your system (such as changing data in a database or writing files to disk)
 
 ---
 
