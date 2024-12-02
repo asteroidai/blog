@@ -1,8 +1,8 @@
 ### A simple markdown blog using NextJS
 
-https://simulated.land
+https://blog.asteroid.sh
 
-Origianlly forked from [tigranbs](https://github.com/tigranbs) NextJS blog.
+Originally forked from [tigranbs](https://github.com/tigranbs) NextJS blog.
 
 To deploy yourself:
 - fork the repo

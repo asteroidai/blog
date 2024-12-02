@@ -9,7 +9,7 @@ function Blog({ Component, pageProps }: AppProps) {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("devs@entropy-labs.ai")
+    navigator.clipboard.writeText("founders@asteroid.sh")
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -22,9 +22,9 @@ function Blog({ Component, pageProps }: AppProps) {
             <CardHeader className="px-0 pb-12">
               <CardTitle className="">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
-                  <Link href="https://entropy-labs.ai">
+                  <Link href="https://asteroid.sh">
                     <p className="text-4xl font-bold">
-                      Entropy Labs
+                      Asteroid
                     </p>
                   </Link>
                   <div className="w-full md:w-auto">
@@ -42,7 +42,7 @@ function Blog({ Component, pageProps }: AppProps) {
                         )}
                       </button>
                       <a
-                        href="https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo"
+                        href="https://calendly.com/david-mlcoch-asteroid/asteroid-demo"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-muted-foreground font-mono font-normal tracking-wide hover:text-foreground transition-colors relative flex items-center gap-2"
@@ -51,20 +51,20 @@ function Blog({ Component, pageProps }: AppProps) {
                         Demo
                       </a>
 
-                      <a href="https://docs.entropy-labs.ai"
+                      <a href="https://docs.asteroid.sh"
                         className="text-sm text-muted-foreground font-mono font-normal tracking-wide hover:text-foreground transition-colors relative flex items-center gap-2">
                         <BookIcon className="h-4 w-4" />
                         Docs
                       </a>
 
-                      <a href="https://blog.entropy-labs.ai/agents"
+                      <a href="https://blog.asteroid.sh/agents"
                         className="text-sm text-muted-foreground font-mono font-normal tracking-wide hover:text-foreground transition-colors relative flex items-center gap-2">
                         <LibraryIcon className="h-4 w-4" />
                         Blog
                       </a>
 
-                      <a href="https://github.com/EntropyLabsAI/sentinel" target="_blank" rel="noopener noreferrer" className="inline-block">
-                        <img src="https://img.shields.io/github/stars/EntropyLabsAI/sentinel?style=social" alt="GitHub stars" />
+                      <a href="https://github.com/asteroid-sh/sentinel" target="_blank" rel="noopener noreferrer" className="inline-block">
+                        <img src="https://img.shields.io/github/stars/asteroid-sh/sentinel?style=social" alt="GitHub stars" />
                       </a>
                     </div>
                   </div>

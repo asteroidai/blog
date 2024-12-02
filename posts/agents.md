@@ -1,14 +1,14 @@
 ---
-title: 'Evaluating Generalist Agents'
+title: 'How do we control AI agents?'
 date: '2024-11-11T00:07:44.675Z'
-description: 'Evaluating generalist agents is hard, and we need evaluation techniques that can keep up with them.'
+description: 'Controlling AI agents is hard, and we need new tools to keep up'
 thumbnail: '/img/blog/head.jpg'
 ---
 
-# You Also Need Supervision
+# How do we control AI agents?
 
 <div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 1rem; margin: 2rem 0;">
-<strong>TL;DR:</strong> We're launching <strong>Sentinel</strong>, a supervision system that makes AI agents more reliable through automated oversight and human controls. <a href="https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo">Get beta access</a> and run it on your agent in a few lines of code.
+<strong>TL;DR:</strong> We're launching <strong>Sentinel</strong>, a supervision system that makes AI agents more reliable through automated oversight and human controls. <a href="https://calendly.com/founders-asteroid/30min">Get beta access</a> and run it on your agent in a few lines of code.
 </div>
 
 ### The hard problem of agents
@@ -67,14 +67,14 @@ The following is a rough sketch of what we believe a good solution to agent supe
 ---
 
 # Sentinel Beta
-To address the above challenges, we are launching the closed beta for [Sentinel](https://docs.entropy-labs.ai/), a powerful new way to improve agent reliability and safety.
+To address the above challenges, we are launching the closed beta for [Sentinel](https://docs.asteroid.sh/), a powerful new way to improve agent reliability and safety.
 
 Sentinel makes it much easier to rapidly prototype, evaluate and monitor agents in the wild. In just a few lines of code, you can add *Supervisors* to your agent which can catch unintended behaviors and edge cases. 
 
 Sentinel is *not* an agent framework. It can hook into any agent of your choice and instantly give you runtime safety and reliability guarantees. Hooking into an agent is as simple as adding a decorator to your function:
 
 ```python
-from entropy_labs import supervise, LLMSupervisor, HumanInTheLoopSupervisor
+from asteroid import supervise, LLMSupervisor, HumanInTheLoopSupervisor
 
 @supervise(
     supervisors=[
@@ -144,6 +144,6 @@ When evaluating LLM applications, it’s useful to be able to test the applicati
 
 # Find out More
 
-Go to our [documentation](https://docs.entropy-labs.ai/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://docs.entropy-labs.ai/quickstart) on how to start using Sentinel. Check out one of our [examples](https://docs.entropy-labs.ai/inspect-ai) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
+Go to our [documentation](https://docs.asteroid.sh/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://docs.asteroid.sh/quickstart) on how to start using Sentinel. Check out one of our [examples](https://docs.asteroid.sh/inspect-ai) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
 
-If you'd like to deploy agents quickly, reliably and safely with Sentinel, [book a demo](https://calendly.com/david-mlcoch-entropy-labs/entropy-labs-demo) with us.
+If you'd like to deploy agents quickly, reliably and safely with Sentinel, [book a demo](https://calendly.com/david-mlcoch-asteroid/asteroid-demo) with us.
