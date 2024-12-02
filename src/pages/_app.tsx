@@ -42,7 +42,7 @@ function Blog({ Component, pageProps }: AppProps) {
                         )}
                       </button>
                       <a
-                        href="https://calendly.com/david-mlcoch-asteroid/asteroid-demo"
+                        href="https://calendly.com/founders-asteroid/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-muted-foreground font-mono font-normal tracking-wide hover:text-foreground transition-colors relative flex items-center gap-2"
@@ -63,8 +63,8 @@ function Blog({ Component, pageProps }: AppProps) {
                         Blog
                       </a>
 
-                      <a href="https://github.com/asteroid-sh/sentinel" target="_blank" rel="noopener noreferrer" className="inline-block">
-                        <img src="https://img.shields.io/github/stars/asteroid-sh/sentinel?style=social" alt="GitHub stars" />
+                      <a href="https://github.com/asteroidai/sentinel" target="_blank" rel="noopener noreferrer" className="inline-block">
+                        <img src="https://img.shields.io/github/stars/asteroidai/sentinel?style=social" alt="GitHub stars" />
                       </a>
                     </div>
                   </div>
