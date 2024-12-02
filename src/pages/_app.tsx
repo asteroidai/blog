@@ -70,7 +70,7 @@ function Blog({ Component, pageProps }: AppProps) {
                   </div>
                 </div>
               </CardTitle>
-              <CardDescription className="text-lg">Supervision and evaluation for agentic systems</CardDescription>
+              <CardDescription className="text-lg">Runtime agent control</CardDescription>
             </CardHeader>
           </Card>
         </div>
