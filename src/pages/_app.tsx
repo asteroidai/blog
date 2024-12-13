@@ -9,7 +9,7 @@ function Blog({ Component, pageProps }: AppProps) {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = () => {
-    navigator.clipboard.writeText("founders@asteroid.sh")
+    navigator.clipboard.writeText("founders@asteroid.ai")
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
   }
@@ -22,7 +22,7 @@ function Blog({ Component, pageProps }: AppProps) {
             <CardHeader className="px-0 pb-12">
               <CardTitle className="">
                 <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-0">
-                  <Link href="https://asteroid.sh">
+                  <Link href="https://asteroid.ai">
                     <p className="text-4xl font-bold">
                       Asteroid
                     </p>
@@ -51,13 +51,13 @@ function Blog({ Component, pageProps }: AppProps) {
                         Demo
                       </a>
 
-                      <a href="https://docs.asteroid.sh"
+                      <a href="https://docs.asteroid.ai"
                         className="text-sm text-muted-foreground font-mono font-normal tracking-wide hover:text-foreground transition-colors relative flex items-center gap-2">
                         <BookIcon className="h-4 w-4" />
                         Docs
                       </a>
 
-                      <a href="https://blog.asteroid.sh/agents"
+                      <a href="https://blog.asteroid.ai/agents"
                         className="text-sm text-muted-foreground font-mono font-normal tracking-wide hover:text-foreground transition-colors relative flex items-center gap-2">
                         <LibraryIcon className="h-4 w-4" />
                         Blog
