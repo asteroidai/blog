@@ -62,10 +62,6 @@ function Blog({ Component, pageProps }: AppProps) {
                         <LibraryIcon className="h-4 w-4" />
                         Blog
                       </a>
-
-                      <a href="https://github.com/asteroidai/sentinel" target="_blank" rel="noopener noreferrer" className="inline-block">
-                        <img src="https://img.shields.io/github/stars/asteroidai/sentinel?style=social" alt="GitHub stars" />
-                      </a>
                     </div>
                   </div>
                 </div>

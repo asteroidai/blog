@@ -8,7 +8,7 @@ thumbnail: '/img/blog/head.jpg'
 # How do we control AI agents?
 
 <div style="background-color: #f8f9fa; border-left: 4px solid #0066cc; padding: 1rem; margin: 2rem 0;">
-<strong>TL;DR:</strong> We're launching <strong>Sentinel</strong>, a supervision system that makes AI agents more reliable through automated oversight and human controls. <a href="https://calendly.com/founders-asteroid/30min">Get beta access</a> and run it on your agent in a few lines of code.
+<strong>TL;DR:</strong> We're launching <strong>Asteroid</strong>, a supervision system that makes AI agents more reliable through automated oversight and human controls. <a href="https://calendly.com/founders-asteroid/30min">Get beta access</a>
 </div>
 
 ### The hard problem of agents
@@ -19,7 +19,7 @@ We believe that to make agents work at scale, we’re going to need entirely new
 2. Runtime agent supervision that is scalable to millions of agents
 3. Seamless human-agent interaction that allows for fast, intuitive and context-aware oversight
 
-There isn't a great existing solution for this, so we're building it. It's called [Sentinel](#sentinel-beta), and you can join our beta [here](#find-out-more).
+There isn't a great existing solution for this, so we're building it. It's called [Asteroid](#asteroid-beta), and you can join our beta [here](#find-out-more).
 
 ### Agents as a new category of software
 
@@ -60,18 +60,18 @@ The impact of individual actions is hard to evaluate. When an agent executes an 
 It appears that traditional LLM evaluations are insufficient for the agent paradigm, so what's next?
 
 ### The future of agent development
-The following is a rough sketch of what we believe a good solution to agent supervision and evaluation would look like. Some of these features are available today with Sentinel, and we're actively working on the rest.
+The following is a rough sketch of what we believe a good solution to agent supervision and evaluation would look like. Some of these features are available today with Asteroid, and we're actively working on the rest.
 
 ![](/img/blog/infra.png)
 
 ---
 
-# Sentinel Beta
-To address the above challenges, we are launching the closed beta for [Sentinel](https://docs.asteroid.sh/), a powerful new way to improve agent reliability and safety.
+# Asteroid Beta
+To address the above challenges, we are launching the closed beta for [Asteroid](https://docs.asteroid.sh/), a powerful new way to improve agent reliability and safety.
 
-Sentinel makes it much easier to rapidly prototype, evaluate and monitor agents in the wild. In just a few lines of code, you can add *Supervisors* to your agent which can catch unintended behaviors and edge cases. 
+Asteroid makes it much easier to rapidly prototype, evaluate and monitor agents in the wild. In just a few lines of code, you can add *Supervisors* to your agent which can catch unintended behaviors and edge cases. 
 
-Sentinel is *not* an agent framework. It can hook into any agent of your choice and instantly give you runtime safety and reliability guarantees. Hooking into an agent is as simple as adding a decorator to your function:
+Asteroid is *not* an agent framework. It can hook into any agent of your choice and instantly give you runtime safety and reliability guarantees. Hooking into an agent is as simple as adding a decorator to your function:
 
 ```python
 from asteroid import supervise, LLMSupervisor, HumanInTheLoopSupervisor
@@ -86,13 +86,13 @@ def my_function():
     return "Hello, world!"
 ```
 
-Sentinel is a Python package and a user interface that you can install and run locally using Docker. The UI gives you deep insights into agent actions, tools that the agent is using, and how supervisors have responded to requests by your agent to execute those tools. 
+Asteroid is a Python package and a user interface that you can install and run locally using Docker. The UI gives you deep insights into agent actions, tools that the agent is using, and how supervisors have responded to requests by your agent to execute those tools. 
 
-![Sentinel UI](/img/blog/ui.png "Sentinel UI")
+![Asteroid UI](/img/blog/ui.png "Asteroid UI")
 
 The UI allows human operators to manually approve, reject or modify agent tool requests. A common design pattern is to have automated supervisors run first and only escalate to human when problematic behavior is detected. 
 
-The main functionalities that Sentinel provides: 
+The main functionalities that Asteroid provides: 
 1. Customizable supervisors for any tool call
 2. Human in the Loop
 3. Tool stubbing for deterministic evaluation of agents 
@@ -120,7 +120,7 @@ We provide a wide range of supervisors out-out-the-box, so you can get started s
 
 ### Configuring a new Supervisor for your use case
 
-The configuration of a custom LLM Supervisor for example, could be as simple as passing a company policy document to an LLM and asking it whether the current agent’s trajectory is inline with the policy. The LLM can then return either approve, reject, modify, escalate or terminate to the agent. Supervisors implementation is extremely flexible. It can include another AI models or deterministic supervisors such as regex rules. We provide some common supervisors that can be configured out of the box, e.g. LLM supervisor, Bash commands supervisors, Python code execution supervisor. But Sentinel users can bring their own specialized supervisors tailored to the agent and provided tool calls. 
+The configuration of a custom LLM Supervisor for example, could be as simple as passing a company policy document to an LLM and asking it whether the current agent’s trajectory is inline with the policy. The LLM can then return either approve, reject, modify, escalate or terminate to the agent. Supervisors implementation is extremely flexible. It can include another AI models or deterministic supervisors such as regex rules. We provide some common supervisors that can be configured out of the box, e.g. LLM supervisor, Bash commands supervisors, Python code execution supervisor. But Asteroid users can bring their own specialized supervisors tailored to the agent and provided tool calls. 
 
 ### Chaining Supervisors together
 
@@ -144,6 +144,6 @@ When evaluating LLM applications, it’s useful to be able to test the applicati
 
 # Find out More
 
-Go to our [documentation](https://docs.asteroid.sh/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://docs.asteroid.sh/quickstart) on how to start using Sentinel. Check out one of our [examples](https://docs.asteroid.sh/inspect-ai) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
+Go to our [documentation](https://docs.asteroid.sh/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://docs.asteroid.sh/quickstart) on how to start using Asteroid. Check out one of our [examples](https://docs.asteroid.sh/inspect-ai) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
 
-If you'd like to deploy agents quickly, reliably and safely with Sentinel, [book a demo](https://calendly.com/david-mlcoch-asteroid/asteroid-demo) with us.
+If you'd like to deploy agents quickly, reliably and safely with Asteroid, [book a demo](https://calendly.com/david-mlcoch-asteroid/asteroid-demo) with us.
