@@ -2,7 +2,7 @@
 title: 'Asteroid: Runtime Supervision for LLM-powered applications'
 date: '2025-01-04T00:07:44.675Z'
 description: 'Asteroid is a runtime supervision platform for LLM-powered applications. It provides intelligent guardrails, human oversight, and continuous evaluations to keep your LLM applications safe and reliable.'
-thumbnail: '/img/blog/abstract.jpg'
+thumbnail: '/img/post2/banner.png'
 ---
 
 ## What is Asteroid?

@@ -25,7 +25,7 @@ const Home = (props: {
 
   return (
     <div className="container mx-auto px-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
         {sorted.map(({ slug, frontMatter: { title, description }, frontMatter }) => (
           <Link key={slug} href={`/${slug}`} passHref>
             <div className="w-full">

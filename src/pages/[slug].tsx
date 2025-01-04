@@ -61,12 +61,28 @@ const TableOfContents: React.FC<{ items: ToCItem[] }> = ({ items }) => {
   );
 };
 
+const ImageModal: React.FC<{ src: string; alt: string; onClose: () => void }> = ({ src, alt, onClose }) => {
+  return (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      <img
+        src={src}
+        alt={alt}
+        className="max-h-[90vh] max-w-[90vw] object-contain"
+      />
+    </div>
+  );
+};
+
 const BlogPost = (props: {
   frontMatter: { [key: string]: string },
   slug: string,
   content: string,
 }) => {
   const [tocItems, setTocItems] = useState<ToCItem[]>([]);
+  const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null);
 
   useEffect(() => {
     // Parse headers from content
@@ -101,14 +117,42 @@ const BlogPost = (props: {
     slugify: (s: string) => s.toLowerCase().replace(/[^\w]+/g, '-')
   });
 
+  // Add custom render rule for images
+  mdParser.renderer.rules.image = (tokens: any, idx: number) => {
+    const token = tokens[idx];
+    const src = token.attrGet('src') || '';
+    const alt = token.content || '';
+    return `
+      <div class="cursor-zoom-in" onclick="window.handleImageClick('${src}', '${alt}')">
+        <img src="${src}" alt="${alt}" class="rounded-lg hover:opacity-90 transition-opacity" />
+      </div>
+    `;
+  };
+
+  // Add effect to setup click handler
+  useEffect(() => {
+    window.handleImageClick = (src: string, alt: string) => {
+      setModalImage({ src, alt });
+    };
+  }, []);
+
   return (
     <div className="container mx-auto px-4">
+      {/* Add modal */}
+      {modalImage && (
+        <ImageModal
+          src={modalImage.src}
+          alt={modalImage.alt}
+          onClose={() => setModalImage(null)}
+        />
+      )}
+
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-64 md:flex-shrink-0">
           <TableOfContents items={tocItems} />
         </div>
 
-        <div className="font-serif max-w-4xl">
+        <div className="max-w-4xl">
           <div className="space-y-16">
             <Image
               src={props.frontMatter.thumbnail}
@@ -161,5 +205,12 @@ export async function getStaticProps({ params: { slug } }: never) {
       slug,
       content,
     },
+  }
+}
+
+// Add type declaration for window
+declare global {
+  interface Window {
+    handleImageClick: (src: string, alt: string) => void;
   }
 }
