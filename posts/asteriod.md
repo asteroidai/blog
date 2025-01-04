@@ -11,7 +11,7 @@ LLM applications pose brand new risks to companies trying to deploy them. Despit
 
 We all want to use AI systems to automate work for us, but we’re concerned about giving AI access to all of our tools. But what if every action could be checked by a human before it was executed? Asteroid doesn’t do that, but we’re but we’re the next best thing!
 
-Asteroid provides **runtime supervision for LLM-powered applications** by combining **intelligent guardrails**, **human oversight**, and **continuous evaluations**. This allows companies to deploy their LLM applications safely and confidently.
+Asteroid provides **runtime supervision for LLM-powered applications** by combining **intelligent guardrails**, **human oversight**, and **continuous evaluations**. This allows companies to deploy their LLM applicGations safely and confidently.
 
 ## The Three Components of Asteroid
 
@@ -123,4 +123,5 @@ Asteroid is ideal for companies that:
 
 ## Partner With Us
 
-If you're deploying LLM applications and need enterprise-grade safety and reliability, we'd love to help. Contact us to learn how Asteroid can make your LLM deployments safer and more reliable.
+If you're deploying LLM applications and need enterprise-grade safety and reliability, we'd love to help. [Contact us to learn how Asteroid can make your LLM deployments safer and more reliable.](https://calendly.com/founders-asteroid-hhaf/30min)
+

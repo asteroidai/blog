@@ -42,7 +42,7 @@ function Blog({ Component, pageProps }: AppProps) {
                         )}
                       </button>
                       <a
-                        href="https://calendly.com/founders-asteroid/30min"
+                        href="https://calendly.com/founders-asteroid-hhaf/30min"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-sm text-muted-foreground font-normal tracking-wide hover:text-foreground transition-colors relative flex items-center gap-2"
