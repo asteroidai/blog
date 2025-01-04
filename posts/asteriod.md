@@ -1,8 +1,8 @@
 ---
-title: 'How do we control AI agents?'
-date: '2024-11-11T00:07:44.675Z'
-description: 'Controlling AI agents is hard, and we need new tools to keep up'
-thumbnail: '/img/blog/head.jpg'
+title: 'Asteroid: Runtime Supervision for LLM-powered applications'
+date: '2025-01-04T00:07:44.675Z'
+description: 'Asteroid is a runtime supervision platform for LLM-powered applications. It provides intelligent guardrails, human oversight, and continuous evaluations to keep your LLM applications safe and reliable.'
+thumbnail: '/img/blog/abstract.jpg'
 ---
 
 ## What is Asteroid?
