@@ -24,6 +24,7 @@
     "luxon": "^3.0.1",
     "markdown-it": "^14.1.0",
     "markdown-it-anchor": "^9.2.0",
+    "markdown-it-container": "^4.0.0",
     "marked": "^4.0.12",
     "marked-react": "^2.0.0",
     "moment": "^2.29.4",

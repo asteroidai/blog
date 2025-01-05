@@ -117,6 +117,25 @@ const BlogPost = (props: {
     slugify: (s: string) => s.toLowerCase().replace(/[^\w]+/g, '-')
   });
 
+  // Add custom container plugin
+  mdParser.use(require('markdown-it-container'), 'button', {
+    validate: function (params: string) {
+      return params.trim().match(/^button\s+(.*)$/);
+    },
+
+    render: function (tokens: any, idx: number) {
+      const m = tokens[idx].info.trim().match(/^button\s+(.*)$/);
+
+      if (tokens[idx].nesting === 1) {
+        // opening tag
+        return `<a href="${m[1]}" class="inline-block px-4 mt-8 border-2 border-purple-600 text-purple-600 font-medium rounded-lg hover:bg-purple-50 transition-colors">`;
+      } else {
+        // closing tag
+        return '</a>\n';
+      }
+    }
+  });
+
   // Add custom render rule for images
   mdParser.renderer.rules.image = (tokens: any, idx: number) => {
     const token = tokens[idx];

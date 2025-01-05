@@ -147,3 +147,7 @@ When evaluating LLM applications, it’s useful to be able to test the applicati
 Go to our [documentation](https://docs.asteroid.sh/) for more detailed explanations and examples. You can learn more about how our supervisors work, how our human in the loop UI looks like and get [instructions](https://docs.asteroid.sh/quickstart) on how to start using Asteroid. Check out one of our [examples](https://docs.asteroid.sh/inspect-ai) for a customer support agent that uses our AI supervisors with human-in-the loop escalation for high risk-actions.
 
 If you'd like to deploy agents quickly, reliably and safely with Asteroid, [book a demo](https://calendly.com/david-mlcoch-asteroid/asteroid-demo) with us.
+
+::: button https://calendly.com/founders-asteroid-hhaf/30min
+Schedule a Demo
+:::
