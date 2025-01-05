@@ -47,7 +47,9 @@ const TableOfContents: React.FC<{ items: ToCItem[] }> = ({ items }) => {
           <li
             key={item.id}
             style={{ marginLeft: `${(item.level - 1) * 1}rem` }}
+            className="flex items-center space-x-1"
           >
+            <span className="text-purple-600">→</span>
             <a
               href={`#${item.id}`}
               className="text-gray-600 hover:text-gray-900 text-sm"
@@ -85,15 +87,19 @@ const BlogPost = (props: {
   const [modalImage, setModalImage] = useState<{ src: string; alt: string } | null>(null);
 
   useEffect(() => {
-    // Parse headers from content
-    const headers = props.content.split('\n')
-      .filter(line => line.startsWith('#'))
-      .map(line => {
-        const level = line.match(/^#+/)?.[0]?.length || 1;
-        const text = line.replace(/^#+\s+/, '');
+    // Parse headers using markdown-it tokens
+    const tokens = mdParser.parse(props.content, {});
+    const headers: ToCItem[] = [];
+
+    tokens.forEach((token: any) => {
+      if (token.type === 'heading_open') {
+        const level = parseInt(token.tag.slice(1));
+        const text = tokens[tokens.indexOf(token) + 1].content;
         const id = text.toLowerCase().replace(/[^\w]+/g, '-');
-        return { id, text, level };
-      });
+        headers.push({ id, text, level });
+      }
+    });
+
     setTocItems(headers);
   }, [props.content]);
 
