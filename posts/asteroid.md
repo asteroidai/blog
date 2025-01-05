@@ -17,7 +17,13 @@ Asteroid provides **runtime supervision for LLM-powered applications** by combin
 
 Let's illustrate Asteroid's architecture using a basic AI Agent loop. In this loop, the user submits information to the LLM, which then produces an action that is passed back to the LLM. The simplest example of this is a chatbot, where the action is simply writing a message.
 
-Asteroid consists of three core components that we can progressively add to our agent loop below to make it safer and reliable. These components are: Asteroid Guardrails, Human Review and Evaluations. These components can be implemented independently or combined to create a robust, self-improving system.
+Asteroid consists of three core components that we can progressively add to our agent loop below to make it safer and reliable. These components are: 
+
+- **Asteroid Guardrails**: Detect specific behaviors that require attention
+- **Asteroid Human Review**: Adds human oversight to your LLM applications
+- **Asteroid Evaluations**: Automatically improves the guardrails and LLM prompts
+
+These components can be implemented independently or combined to create a robust, self-improving system.
 
 ![agent_loop.jpg](/img/post2/loop1.jpg)
 
@@ -84,7 +90,7 @@ This automated feedback loop ensures that every interaction strengthens your app
 
 ![evals.jpg](/img/post2/loop4.jpg)
 
-## LLM Call with Asteroid’s Supervision
+## Putting it all together
 
 Let's put all components together and show how Asteroid supervises LLM calls using a customer refund request example. In this example, when a customer asks for a refund, Asteroid's supervision ensures proper handling through multiple safety checks, human oversight when needed, and continuous learning from each interaction. Our guardrails check conditions like refund amount and customer authentication, while human reviewers can step in to suggest better approaches, such as offering alternative products before processing refunds. The LLM input together with the modified LLM output is then automatically added to the evaluation database which Asteroid uses to continually improve the prompts and guardrails.
 
