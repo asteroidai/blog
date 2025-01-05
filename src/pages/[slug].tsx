@@ -122,6 +122,22 @@ const BlogPost = (props: {
     const token = tokens[idx];
     const src = token.attrGet('src') || '';
     const alt = token.content || '';
+
+    // Check if the source is an MP4 video
+    if (src.endsWith('.mp4')) {
+      return `
+        <video 
+          controls
+          class="w-full rounded-lg"
+          playsinline
+        >
+          <source src="${src}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      `;
+    }
+
+    // Regular image handling
     return `
       <div class="cursor-zoom-in" onclick="window.handleImageClick('${src}', '${alt}')">
         <img src="${src}" alt="${alt}" class="rounded-lg hover:opacity-90 transition-opacity" />

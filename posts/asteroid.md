@@ -9,7 +9,7 @@ thumbnail: '/img/post2/banner.png'
 
 LLM applications pose brand new risks to companies trying to deploy them. Despite all of the excitement, making good use of AI in production is extremely hard — what are the failure modes you’re not aware of? How will your system be abused? What vulnerabilities and liabilities are these systems exposing you to?
 
-We all want to use AI systems to automate work for us, but we’re concerned about giving AI access to all of our tools. But what if every action could be checked by a human before it was executed? Asteroid doesn’t do that, but we’re the next best thing!
+We all want to use AI systems to automate work for us, but we’re concerned about giving AI access to all of our tools. The gold standard is to have a human review every action, but this is extremely expensive and time consuming. This is where Asteroid comes in.
 
 Asteroid provides **runtime supervision for LLM-powered applications** by combining **intelligent guardrails**, **human oversight**, and **continuous evaluations**. This allows companies to deploy their LLM applications safely and confidently.
 
@@ -46,13 +46,16 @@ Guardrails can be chained sequentially or run in parallel. A common pattern is t
 
 ### 2. Asteroid Human Review
 
-**When guardrails detect concerning behavior, they can escalate to human review.** Reviewers can:
+Asteroid makes it easy to add human review to your LLM applications. We provide an API and an interface (additional integrations are coming soon)that enable reviewers to efficiently handle any actions flagged for human review by the guardrails. Reviewers could be whoever is responsible for the application, a dedicated team or a an external third party you choose. Reviewers can:
 
+**When guardrails detect concerning behavior, they can escalate to a human to review.** Reviewers can:
 - Approve safe actions
 - Modify incorrect outputs
 - Reject dangerous operations
 
-We provide a comprehensive web-based dashboard that gives reviewers all the contextual information they need to make informed decisions. Additional integration options through Slack and API access are currently under development.
+For example, the following demonstrates a human reviewer modifying an agent's request to book a flight with an updated maximum price, then approving the action:
+
+![human_review.mp4](/img/post2/human_review.mp4)
 
 Common scenarios requiring human review include:
 
