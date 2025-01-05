@@ -46,9 +46,9 @@ Guardrails can be chained sequentially or run in parallel. A common pattern is t
 
 ### 2. Asteroid Human Review
 
-Asteroid makes it easy to add human review to your LLM applications. We provide an API and an interface that enable reviewers to efficiently handle any actions flagged for human review by the guardrails. Reviewers could be whoever is responsible for the application, a dedicated team or a an external third party you choose. Reviewers can:
+Asteroid makes it easy to add human review to your LLM applications. We provide an API and an interface that enable reviewers to efficiently handle any actions flagged for human review by the guardrails. Reviewers could be whoever is responsible for the application, a dedicated team or a an external third party you choose.
 
-**When guardrails detect concerning behavior, they can escalate to a human to review.** Reviewers can:
+**When guardrails detect concerning behavior, they can escalate to a human to review.** Reviewers can then:
 - Approve safe actions
 - Modify incorrect outputs
 - Reject dangerous operations
