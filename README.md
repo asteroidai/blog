@@ -1,8 +1,6 @@
 ### A simple markdown blog using NextJS
 
-https://blog.asteroid.sh
-
-Originally forked from [tigranbs](https://github.com/tigranbs) NextJS blog.
+https://blog.asteroid.ai
 
 To deploy yourself:
 - fork the repo
