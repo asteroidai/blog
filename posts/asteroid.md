@@ -9,9 +9,9 @@ thumbnail: '/img/post2/banner.png'
 
 LLM applications pose brand new risks to companies trying to deploy them. Despite all of the excitement, making good use of AI in production is extremely hard — what are the failure modes you’re not aware of? How will your system be abused? What vulnerabilities and liabilities are these systems exposing you to?
 
-We all want to use AI systems to automate work for us, but we’re concerned about giving AI access to all of our tools. But what if every action could be checked by a human before it was executed? Asteroid doesn’t do that, but we’re but we’re the next best thing!
+We all want to use AI systems to automate work for us, but we’re concerned about giving AI access to all of our tools. But what if every action could be checked by a human before it was executed? Asteroid doesn’t do that, but we’re the next best thing!
 
-Asteroid provides **runtime supervision for LLM-powered applications** by combining **intelligent guardrails**, **human oversight**, and **continuous evaluations**. This allows companies to deploy their LLM applicGations safely and confidently.
+Asteroid provides **runtime supervision for LLM-powered applications** by combining **intelligent guardrails**, **human oversight**, and **continuous evaluations**. This allows companies to deploy their LLM applications safely and confidently.
 
 ## The Three Components of Asteroid
 
